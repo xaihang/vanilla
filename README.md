@@ -176,6 +176,125 @@ element.dispatchEvent(event);
 ```
 - can create our own class, interfaces 
 
+## SPA (single page appliation) & Router
+- how to change content? 
+    * remove previous pg and inject new page into the DOM
+    * hide previous page and show current page
+- we want to change the content of the page based on what the user select:
+    * Home page: menu
+    * details of one particular product
+    * order: cart details/order form
+- use the DOM and APIs, web component, history API to push to new entries to the nav history
+```js
+//pushing a new url; the second argument is unused
+history.pushState(optional_state, null, "/new-url");
+//to listen for changes in url within the same page nav
+window.addEvevntListener("popstate", event => {
+    let url = location.href;
+});
+```
+**Popstate won't be fired if the user clicks on external link or changes the url manually**
 
+**when creating a SPA config your server properly and check theurl when tthe whole page loads for the first time.**
 
+## Web Components
+- make each page its own component 
+- a modular, reusable building block for web dev that encapsulates a set of related functionality and user interface elements
+- in short, your own custom html element
+- compatible with every browser
+- set of standards:
+    * custom elements
+    * html template
+    * shadow DOM
+    * declarative shadow dom (new) - safari user
+- freedom of choice on how to define them and use them
 
+### custom element 
+we can define our own html tags using the customer elements api
+**The html tag we define must contain a hyphen(-) to assure future compatiblity**
+- we can define our own custom attributes using the data-* spec. 
+- we can override some methods of th super class
+- express as string - jsx won't be able to define value from html
+- customer 
+- dom challenge 
+- attrbute changedcallback 
+- slots = is the content that we can define as the component child with template we can have more than one slot
+- customized builtins 
+```js
+<div is="my-element"> </div>
+```
+
+### template element 
+fragments of markup that can be cloned  - browser ignored template before 
+create a dom in memorie that can be rendered 
+- we clone them aka template 
+- `connectedcallback` method of the custom elem - clone it and then we use it
+by default the node of our cust element are 
+
+### shadow DOM 
+a private, isolated DOM tree within a web component that is separated from the main documents DOM tree
+- control over styling
+- css declared in the main dom won't be applied to the shadow dom
+- shadow dom can be opened or closed defining visibility from the outer dom
+- html import
+```js
+class MyElement extends HTMLElement {
+    constructor() {
+        super();
+        this.root = this.attachShadow({})
+    }
+}
+```
+### Where to define HTML for a custom Element
+There are several alternatives:
+ - use DOM APIs
+ - Use a <template> in the main HTML
+ - use an external HTML file loaded with fetch 
+    * using innerHTML
+    * using DOM
+
+### Where to define CSS for a Custom Element
+There are several alternatives:
+ - use CSSOM APIs
+ - add a <script> to a <template>
+ - add a <link> in the <template>
+ - use externaml CSS file loaded with fetch (it can be prefetched) and injected in the shadow DOM
+
+## Reactive Programming with Proxies
+A wrapper object that lets you intercept and modify operations performed on the wrapped object, allowing you to add custom behavior or validation to the object's properites and methods
+```js
+const original = {
+    new: 'John Doe',
+    age: 30
+};
+
+const s = new Proxy(original, handler);
+console.log(s.age); // 30 years old
+
+const handler = {
+    get: function(target, prop) {
+        if (property  === 'age') {
+            return ....
+        }
+    }
+}
+```
+**Proxies work with objects only!**
+
+### Most used Proxy Traps aka Hooks
+* get
+* set
+* has
+* deleteProperty
+* apply
+* construct ....
+
+## Wrapped-up
+- vanilla js
+- fetch 
+- DOM API
+- Design patterns
+- SPA
+- Web components
+- Routing
+- Reactive Programming 
