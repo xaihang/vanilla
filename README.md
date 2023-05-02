@@ -139,7 +139,42 @@ const contents = element.innerHTML
 - accessing innerhtml
 - using DOM apis to create new nodes
 
-## instance methods 
+## Event binding
+- each DOM ele has a list of possible events we can listen to
+- pointer and touch event
+- basic: load, click, dbclick
+- value: change
+- scroll, focus, more apis
+- keyboard events
+- mouse events
+- special events: popstate in window, DOMContentLoad 
+
+## binding func to events in DOM obj
+- onevent properties
+- addEventListener
+- onclick on the DOM with js is all lowered case
+
+## advance event handling
+- you can attach more than one event handler per event/obj combinattion
+```js
+function eventHandler(event) {
+    // do something
+}
+const options = {
+    once: true,
+    passive: true
+}
+element.addEventListener("load", eventHandler, options);
+element.removeEventListener("load", eventHandler); // remove is use only when inject or removing element that we donot use anymore 
+```
+
+## dispatching custom events
+- reuse the same system for our own custom events and msg
+```js
+const event = new Event("mycustomname");
+element.dispatchEvent(event); 
+```
+- can create our own class, interfaces 
 
 
 
